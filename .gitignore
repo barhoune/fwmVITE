@@ -1,0 +1,29 @@
+# Node dependencies
+node_modules/
+
+# Vite cache & build outputs
+dist/
+.vite/
+
+# Local minified outputs (if not committed)
+**/min/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Optional: temporary files
+*.tmp
+*.temp
