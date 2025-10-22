@@ -43,6 +43,10 @@ async function minifyJS(file, outDir) {
 }
 
 export default defineConfig({
+  cacheDir: false,
+  server: {
+    hmr: false
+  },
   plugins: [
     {
       name: 'vite-minifier',

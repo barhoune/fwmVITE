@@ -1,0 +1,10 @@
+{
+    "watch": [
+        "vite.config.js"
+    ],
+    "ext": "js,json",
+    "exec": "vite",
+    "delay": "200",
+    "restartable": true,
+    "signal": "SIGINT"
+}
