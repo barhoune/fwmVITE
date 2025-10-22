@@ -11,9 +11,9 @@ const iconPath = path.join(process.cwd(), 'notifcation.png')
  * @param {string} message 
  */
 export function logTask(type, message, file) {
-    notifier.notify({ title: `${type} Minified`, message: path.basename(file), icon: iconPath })
-    const time = new Date().toTimeString().split(' ')[0]
-    console.log(pc.gray(`[${time}]`), pc.magenta('fwmVITE:'), pc.green(`[${type}]`), message)
+  notifier.notify({ title: `${type} Minified`, message: path.basename(file), icon: iconPath })
+  const time = new Date().toTimeString().split(' ')[0]
+  console.log(pc.gray(`[${time}]`), pc.magenta('fwmVITE:'), pc.green(`[${type}]`), message)
 }
 
 /**
@@ -23,16 +23,32 @@ export function logTask(type, message, file) {
  * @param {Error} err 
  */
 export function logError(type, filePath, err) {
-  const time = new Date().toTimeString().split(' ')[0]
-  const baseFile = path.basename(filePath)
-  notifier.notify({ title: `${type} ERROR`, message: baseFile, icon: iconPath })
-  console.error(pc.red(`[${time}] ${type} ERROR in ${baseFile}`))
-  if (err.filename) {console.error(pc.yellow(`File: ${err.filename}`))}
-  if (err.line) {console.error(pc.yellow(`Line: ${err.line}, Column: ${err.column}`))}
-  if (err.message) {    
-    const formatted = err.message.replace(/Tried -/g, '\nTried -')
-    console.error(pc.red(formatted))
+  const time = new Date().toTimeString().split(" ")[0];
+  const baseFile = path.basename(filePath);
+  notifier.notify({ title: `${type} ERROR`, message: baseFile, icon: iconPath });
+
+  console.error(pc.red(`[${time}] ${type} ERROR in ${baseFile}`));
+
+  if (filePath) {
+    let normalizedPath = filePath.replace(/\\/g, "/");
+    let includesIndex = normalizedPath.indexOf("/includes/");
+
+    if (includesIndex !== -1) {
+      normalizedPath = normalizedPath.slice(includesIndex);
+    }
+
+    console.error(pc.yellow(`File: ${normalizedPath}`));
   }
-  if (err.stack) {console.error(pc.gray(err.stack))}
+
+
+  if (err.line) console.error(pc.yellow(`Line: ${err.line}`));
+
+  if (err.message) {
+    const formatted = err.message
+      .replace(/Tried -/g, "\nTried -")
+      .replace(/,/g, ",\n");
+    console.error(pc.red(formatted));
+  }
+  if (err.stack) console.error(pc.gray(err.stack));
 }
 
