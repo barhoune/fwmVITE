@@ -13,7 +13,7 @@ const iconPath = path.join(process.cwd(), 'notifcation.png')
 export function logTask(type, message, file) {
   notifier.notify({ title: `${type} Minified`, message: path.basename(file), icon: iconPath })
   const time = new Date().toTimeString().split(' ')[0]
-  console.log(pc.gray(`[${time}]`), pc.magenta('fwmVITE:'), pc.green(`[${type}]`), message)
+  console.log(pc.gray(`[${time}]`), pc.magenta('fwmVITE:'), type=='LESS'? pc.cyan(`[${type}]`) : pc.redBright(`[${type}]`), message)
 }
 
 /**

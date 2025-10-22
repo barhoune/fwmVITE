@@ -36,7 +36,7 @@ async function minifyJS(file, outDir) {
     fs.mkdirSync(outDir, { recursive: true })
     const outFile = path.join(outDir, path.basename(file, '.js') + '-min.js')
     fs.writeFileSync(outFile, minified.code)
-    logTask('JS', 'JS Minified', file)
+    logTask('JS', 'JS Compiled, Prefixed and Minified', file)
   } catch (err) {
     logError('JS', file, err)
   }
