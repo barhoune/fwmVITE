@@ -8,7 +8,7 @@ import cssnano from 'cssnano'
 import chokidar from 'chokidar'
 import { minify as terserMinify } from 'terser'
 import { stylePathsNew, jsPathsNew } from './paths.js'
-import { logTask,logError } from './notifier.js'
+import { logTask, logError } from './notifier.js'
 
 const processors = [
   autoprefixer({ grid: true, overrideBrowserslist: ['defaults'] }),
@@ -45,16 +45,16 @@ async function minifyJS(file, outDir) {
 export default defineConfig({
   plugins: [
     {
-      name: 'inplace-minifier',
+      name: 'vite-minifier',
       apply: 'serve',
       configureServer() {
-        console.log('[inplace-minifier] watching LESS & JS files...')
+        console.log('[vite-minifier] watching LESS & JS files...')
         //TODO - Add old paths here and conditional compiling as well
         chokidar.watch([...stylePathsNew, ...jsPathsNew], { ignoreInitial: true })
           .on('change', (file) => {
             const outDir = path.join(path.dirname(file), 'min')
-            if (file.endsWith('.less')) {compileLess(file, outDir)}
-            if (file.endsWith('.js')) {minifyJS(file, outDir)}
+            if (file.endsWith('.less')) { compileLess(file, outDir) }
+            if (file.endsWith('.js')) { minifyJS(file, outDir) }
           })
       }
     }

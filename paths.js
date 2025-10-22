@@ -6,14 +6,19 @@ const devFolder = "fwmDEV"
 const fedevFolder = "fwmFEDEV"
 
 // TODO - Add Fix old paths for V3 - V4
-// export const stylePathsOld = [
-//   path.join(baseFolder, '/', testFolder, '/*/includes/default/styles.less'),
-//   path.join(baseFolder, '/', testFolder, '/*/includes/mobile/styles.less'),
-//   path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/styles.less'),
-//   path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/mobile/styles.less'),
-//   path.join(baseFolder, '/', fedevFolder, '/*/httpdocs/includes/default/styles.less'),
-//   path.join(baseFolder, '/', fedevFolder, '/*/httpdocs/includes/mobile/styles.less'),
-// ]
+export const stylePathsOld = [
+    // TEST
+    path.join(baseFolder, '/', testFolder, '/*/includes/default/styles.less'),
+    path.join(baseFolder, '/', testFolder, '/*/includes/mobile/styles.less'),
+
+    //!IMPORTANT - DEV - This was intended for Chris and Kevin in the past - Only Uncomment for DSS redesigns
+    // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/styles.less'),
+    // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/mobile/styles.less'),
+
+    // FEDEV
+    path.join(baseFolder, '/', fedevFolder, '/*/httpdocs/includes/default/styles.less'),
+    path.join(baseFolder, '/', fedevFolder, '/*/httpdocs/includes/mobile/styles.less'),
+];
 
 export const stylePathsNew = [
     // TEST
@@ -67,12 +72,12 @@ export const jsPathsNew = [
     path.join(baseFolder, '/', testFolder, '/*/includes/default/sidebar/*/*.js'),
     path.join(baseFolder, '/', testFolder, '/*/includes/default/sections/*/*.js'),
 
-    // DEV
-    path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/components/*/*.js'),
-    path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/panels-editor/*/*.js'),
-    path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/panels/*/*.js'),
-    path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/sidebar/*/*.js'),
-    path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/sections/*/*.js'),
+    //!IMPORTANT - DEV - This was intended for Chris and Kevin in the past - Only Uncomment for DSS redesigns
+    // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/components/*/*.js'),
+    // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/panels-editor/*/*.js'),
+    // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/panels/*/*.js'),
+    // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/sidebar/*/*.js'),
+    // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/sections/*/*.js'),
 
     // FEDEV
     // V5
