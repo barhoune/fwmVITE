@@ -41,28 +41,39 @@ async function minifyJS(file, outDir) {
     logError('JS', file, err)
   }
 }
+global.__vite_watchers ||= []
 
 export default defineConfig({
-  cacheDir: false,
   server: {
-    hmr: false
+    hmr: true
   },
   plugins: [
     {
       name: 'vite-minifier',
       apply: 'serve',
       configureServer() {
-        console.log('[vite-minifier] watching LESS & JS files...')
-        //TODO - Add old paths here and conditional compiling as well
-        chokidar.watch([...stylePathsNew, ...jsPathsNew], { ignoreInitial: true })
-          .on('change', (file) => {
-            const outDir = path.join(path.dirname(file), 'min')
-            if (file.endsWith('.less')) { compileLess(file, outDir) }
-            if (file.endsWith('.js')) { minifyJS(file, outDir) }
-          })
+        //?INFO: Set Debug to TRUE when facing issues with multiple compiles at once
+        let debug = false
+
+        if (global.__vite_watchers[0]) {
+          console.log('[DEBUG] Closing old watcher...')
+          global.__vite_watchers[0].close()
+        }
+
+        const watcher = chokidar.watch([...stylePathsNew, ...jsPathsNew], { ignoreInitial: true, usePolling: false })
+        watcher.on('change', (file) => {
+          const outDir = path.join(path.dirname(file), 'min')
+          if (file.endsWith('.less')) { compileLess(file, outDir) }
+          if (file.endsWith('.js')) { minifyJS(file, outDir) }
+        })
+
+        global.__vite_watchers[0] = watcher
+
+        if (debug) {
+          console.log('[DEBUG] Created new Chokidar watcher')
+          console.log(`[DEBUG] Total watchers: ${global.__vite_watchers.length}`)
+        }
       }
     }
-  ],
-  clearScreen: false,
-  logLevel: 'error'
+  ]
 })
