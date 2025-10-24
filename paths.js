@@ -10,8 +10,8 @@ export const stylePathsOld = [
     // TEST
     path.join(baseFolder, '/', testFolder, '/*/includes/default/styles.less'),
     path.join(baseFolder, '/', testFolder, '/*/includes/mobile/styles.less'),
-
-    //!IMPORTANT - DEV - This was intended for Chris and Kevin in the past - Only Uncomment for DSS redesigns
+    // DEV
+    //!IMPORTANT:  This was intended for Chris and Kevin in the past - Only Uncomment for DSS redesigns
     // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/styles.less'),
     // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/mobile/styles.less'),
 
@@ -34,8 +34,8 @@ export const stylePathsNew = [
     "../fwmTEST/*/includes/default/panels/*/*.less",
     "../fwmTEST/*/includes/default/sidebar/*/*.less",
     "../fwmTEST/*/includes/default/sections/*/*.less",
-
-    //!IMPORTANT - DEV - This was intended for Chris and Kevin in the past - Only Uncomment for DSS redesigns
+    // DEV
+    //!IMPORTANT:  This was intended for Chris and Kevin in the past - Only Uncomment for DSS redesigns
     // "../fwmDEV/*/httpdocs/includes/default/local_templates/components/*/*.less",
     // "../fwmDEV/*/httpdocs/includes/default/local_templates/panels-editor/*/*.less",
     // "../fwmDEV/*/httpdocs/includes/default/local_templates/panels/*/*.less",
@@ -71,8 +71,8 @@ export const jsPathsNew = [
     path.join(baseFolder, '/', testFolder, '/*/includes/default/panels/*/*.js'),
     path.join(baseFolder, '/', testFolder, '/*/includes/default/sidebar/*/*.js'),
     path.join(baseFolder, '/', testFolder, '/*/includes/default/sections/*/*.js'),
-
-    //!IMPORTANT - DEV - This was intended for Chris and Kevin in the past - Only Uncomment for DSS redesigns
+    // DEV
+    //!IMPORTANT:  This was intended for Chris and Kevin in the past - Only Uncomment for DSS redesigns
     // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/components/*/*.js'),
     // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/panels-editor/*/*.js'),
     // path.join(baseFolder, '/', devFolder, '/*/httpdocs/includes/default/local_templates/panels/*/*.js'),
