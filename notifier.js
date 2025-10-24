@@ -3,6 +3,7 @@ import path from 'path'
 import pc from 'picocolors'
 
 const iconPath = path.join(process.cwd(), 'notifcation.png')
+const iconErrorPath = path.join(process.cwd(), 'notifcation-error.png')
 
 /**
  * Log compile messages with colors, filename, line/column
@@ -13,7 +14,7 @@ const iconPath = path.join(process.cwd(), 'notifcation.png')
 export function logTask(type, message, file) {
   notifier.notify({ title: `${type} Minified`, message: path.basename(file), icon: iconPath })
   const time = new Date().toTimeString().split(' ')[0]
-  console.log(pc.gray(`[${time}]`), pc.magenta('fwmVITE:'), type=='LESS'? pc.cyan(`[${type}]`) : pc.redBright(`[${type}]`), message)
+  console.log(pc.green(`[${time}]`), pc.magenta('fwmVITE :'), type == 'LESS' ? pc.cyan(`[${type}]`) : pc.yellowBright(`[${type}]`), message)
 }
 
 /**
@@ -25,9 +26,9 @@ export function logTask(type, message, file) {
 export function logError(type, filePath, err) {
   const time = new Date().toTimeString().split(" ")[0];
   const baseFile = path.basename(filePath);
-  notifier.notify({ title: `${type} ERROR`, message: baseFile, icon: iconPath });
-
-  console.error(pc.red(`[${time}] ${type} ERROR in ${baseFile}`));
+  notifier.notify({ title: `${type} ERROR`, message: baseFile, icon: iconErrorPath });
+  let notificationType = type === 'LESS' ? pc.cyan(`[${type}]`) : pc.yellowBright(`[${type}]`);
+  console.error(`${pc.green(`[${time}]`)} ${pc.magenta(`fwmVITE :`)} ${notificationType} ${pc.red(`${type} ERROR in ${baseFile}`)}`);
 
   if (filePath) {
     let normalizedPath = filePath.replace(/\\/g, "/");
