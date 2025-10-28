@@ -6,8 +6,9 @@ import postcss from 'postcss'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import chokidar from 'chokidar'
+import { minimatch } from 'minimatch'
 import { minify as terserMinify } from 'terser'
-import { stylePathsNew, jsPathsNew } from './paths.js'
+import { stylePathsNew, jsPathsNew, stylePathsOld } from './paths.js'
 import { logTask, logError } from './notifier.js'
 
 const processors = [
@@ -15,15 +16,16 @@ const processors = [
   cssnano({ minifyFontValues: false, discardUnused: false })
 ]
 
-async function compileLess(file, outDir) {
+async function compileLess(file, outDir,isOldFile) {
   try {
     const data = fs.readFileSync(file, 'utf8')
     const output = await less.render(data, { filename: file, javascriptEnabled: true })
     const post = await postcss(processors).process(output.css, { from: undefined })
     const outFile = path.join(outDir, path.basename(file, '.less') + '.css')
+    const type = isOldFile ? 'OLD LESS' : 'LESS'
     fs.mkdirSync(outDir, { recursive: true })
     fs.writeFileSync(outFile, post.css)
-    logTask('LESS', 'Less Compiled, Prefixed and Minified', file)
+    logTask(type, 'Less Compiled, Prefixed and Minified', file)
   } catch (err) {
     logError('LESS', file, err)
   }
@@ -42,6 +44,7 @@ async function minifyJS(file, outDir) {
   }
 }
 global.__vite_watchers ||= []
+global.__watchOldPaths ||= true;
 
 export default defineConfig({
   server: {
@@ -60,10 +63,15 @@ export default defineConfig({
           global.__vite_watchers[0].close()
         }
 
-        const watcher = chokidar.watch([...stylePathsNew, ...jsPathsNew], { ignoreInitial: true, usePolling: false })
+        const watchedLessFiles = [...stylePathsNew];
+        if (global.__watchOldPaths) { watchedLessFiles.push(...stylePathsOld); }
+        const watcher = chokidar.watch([...watchedLessFiles, ...jsPathsNew], { ignoreInitial: true, usePolling: false });
+
         watcher.on('change', (file) => {
-          const outDir = path.join(path.dirname(file), 'min')
-          if (file.endsWith('.less')) { compileLess(file, outDir) }
+          const fileNormalized = file.replace(/\\/g, '/');
+          const isOldFile = global.__watchOldPaths && stylePathsOld.some(oldGlob => { const patternNormalized = oldGlob.replace(/\\/g, '/'); return minimatch(fileNormalized, patternNormalized); });
+          const outDir = isOldFile ? path.dirname(file) : path.join(path.dirname(file), 'min');          
+          if (file.endsWith('.less')) { compileLess(file, outDir, isOldFile) }
           if (file.endsWith('.js')) { minifyJS(file, outDir) }
         })
 

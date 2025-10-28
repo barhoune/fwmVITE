@@ -12,7 +12,7 @@ const fedevFolder = "fwmFEDEV"
  * @environments TEST | DEV | FEDEV
  * @activeEnvironments TEST | FEDEV
  */
-// TODO - Add Fix old paths for V3 - V4
+
 export const stylePathsOld = [
     /** TEST */
     path.join(baseFolder, '/', testFolder, '/*/includes/default/styles.less'),
